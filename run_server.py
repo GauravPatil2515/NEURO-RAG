@@ -107,6 +107,38 @@ def stats():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/api/database', methods=['GET'])
+def database():
+    """Get database content"""
+    try:
+        # Read the ICD-10 text file
+        data_path = 'data/icd10_text.txt'
+        if not os.path.exists(data_path):
+            return jsonify({
+                'success': False,
+                'error': 'Database file not found'
+            }), 404
+        
+        with open(data_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        # Limit to first 5000 characters for preview
+        preview = content[:5000]
+        if len(content) > 5000:
+            preview += '\n\n... (showing first 5000 characters of ' + str(len(content)) + ' total)'
+        
+        return jsonify({
+            'success': True,
+            'content': preview,
+            'total_length': len(content)
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
 @app.route('/health')
 def health():
     """Health check endpoint"""

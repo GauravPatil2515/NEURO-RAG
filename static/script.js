@@ -1,5 +1,45 @@
 // NeuroRAG Dashboard JavaScript
 
+// Show/Hide sections
+function showSection(sectionName) {
+    // Hide all sections
+    document.getElementById('dashboardSection').style.display = 'none';
+    document.getElementById('databaseSection').style.display = 'none';
+    
+    // Remove active class from all links
+    document.querySelectorAll('.link-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    // Show selected section
+    if (sectionName === 'dashboard') {
+        document.getElementById('dashboardSection').style.display = 'block';
+        document.querySelectorAll('.link-item')[0].classList.add('active');
+    } else if (sectionName === 'database') {
+        document.getElementById('databaseSection').style.display = 'block';
+        document.querySelectorAll('.link-item')[1].classList.add('active');
+    }
+}
+
+// Load database content
+async function loadDatabase() {
+    const contentDiv = document.getElementById('databaseContent');
+    contentDiv.innerHTML = '<p style="text-align: center; color: var(--text-secondary); padding: 2rem;">Loading database...</p>';
+    
+    try {
+        const response = await fetch('/api/database');
+        const data = await response.json();
+        
+        if (data.success) {
+            contentDiv.innerHTML = data.content;
+        } else {
+            contentDiv.innerHTML = `<p style="color: var(--error);">Error: ${data.error}</p>`;
+        }
+    } catch (error) {
+        contentDiv.innerHTML = `<p style="color: var(--error);">Failed to load database: ${error.message}</p>`;
+    }
+}
+
 // Set query from suggestion chip
 function setQuery(text) {
     document.getElementById('searchInput').value = text;
