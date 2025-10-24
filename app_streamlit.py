@@ -88,4 +88,4 @@ if query:
 
 # Footer
 st.markdown("---")
-st.caption("Built by Devanshu Patil for Wundrsight Internship Assignment · Powered by LangChain + Falcon + FAISS")
+st.caption("Built by Gaurav Patil · Powered by LangChain + FAISS")

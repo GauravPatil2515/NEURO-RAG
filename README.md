@@ -1,8 +1,8 @@
 # NeuroRAG
 # 🧠 NeuroRAG – Intelligent Mental Health Code & Diagnosis Assistant
 
-**Created by [Devanshu Patil]((https://www.linkedin.com/in/devanshu-patil-8618b3222/))**  
-📍 Pune, India | 🎓 B.Tech Computer Engineering | 
+**Created by Gaurav Patil**  
+📍 India | 🎓 B.Tech Computer Engineering 
 
 
 
@@ -111,9 +111,9 @@ streamlit
 
 -Currently answers only English queries.
 
-👨‍💻 About Me
+👨‍💻 About
 
-I’m Devanshu Patil, an aspiring AI engineer from India with a deep interest in:
+NeuroRAG is an AI-powered project built with a focus on:
 
 GenAI
 
