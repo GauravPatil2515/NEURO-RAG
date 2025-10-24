@@ -35,22 +35,34 @@ async function loadDatabase() {
         if (data.success) {
             // Store full content for searching
             window.dbFullContent = data.content;
-            contentDiv.innerHTML = `<div style="color: var(--text-primary);">${escapeHtml(data.content)}</div>`;
+            
+            // Show first 10000 characters as preview
+            const preview = data.content.substring(0, 10000);
+            const isPreview = data.content.length > 10000;
+            
+            contentDiv.innerHTML = `
+                <div style="color: var(--text-primary); white-space: pre-wrap; font-family: monospace; font-size: 0.9rem; line-height: 1.6;">${escapeHtml(preview)}${isPreview ? '\n\n...(use search to find specific content)' : ''}</div>
+            `;
             
             // Show stats
             const stats = document.createElement('div');
             stats.style.cssText = 'margin-top: 1rem; padding: 1rem; background: var(--bg-card); border-radius: 8px; font-size: 0.875rem; color: var(--text-secondary);';
-            stats.innerHTML = `<strong>Total characters:</strong> ${data.total_length.toLocaleString()} | <strong>Showing:</strong> ${data.content.length.toLocaleString()} characters (preview)`;
-            contentDiv.appendChild(stats);
+            stats.innerHTML = `
+                <strong style="color: var(--accent-green);">✅ Database Loaded</strong><br>
+                <strong>Total size:</strong> ${data.total_length.toLocaleString()} characters | 
+                <strong>Lines:</strong> ${data.lines.toLocaleString()} | 
+                <strong>Showing:</strong> ${preview.length.toLocaleString()} characters (preview)
+            `;
+            contentDiv.insertBefore(stats, contentDiv.firstChild);
             
             // Enable search
             searchInput.disabled = false;
-            searchInput.placeholder = 'Search in database content...';
+            searchInput.placeholder = 'Search for ICD codes, disorders, symptoms...';
         } else {
-            contentDiv.innerHTML = `<p style="color: var(--error); padding: 2rem;">Error: ${escapeHtml(data.error)}</p>`;
+            contentDiv.innerHTML = `<p style="color: var(--error); padding: 2rem;">❌ Error: ${escapeHtml(data.error)}</p>`;
         }
     } catch (error) {
-        contentDiv.innerHTML = `<p style="color: var(--error); padding: 2rem;">Failed to load database: ${escapeHtml(error.message)}</p>`;
+        contentDiv.innerHTML = `<p style="color: var(--error); padding: 2rem;">❌ Failed to load database: ${escapeHtml(error.message)}</p>`;
     }
 }
 
@@ -61,13 +73,22 @@ function searchDatabase() {
     const searchTerm = searchInput.value.trim().toLowerCase();
     
     if (!window.dbFullContent) {
-        alert('Please load the database first');
+        alert('⚠️ Please load the database first by clicking "Load Data"');
         return;
     }
     
     if (!searchTerm) {
-        // Show full content if search is empty
-        contentDiv.innerHTML = `<div style="color: var(--text-primary);">${escapeHtml(window.dbFullContent)}</div>`;
+        // Show preview if search is empty
+        const preview = window.dbFullContent.substring(0, 10000);
+        const isPreview = window.dbFullContent.length > 10000;
+        
+        contentDiv.innerHTML = `
+            <div style="margin-bottom: 1rem; padding: 1rem; background: var(--bg-card); border-radius: 8px; font-size: 0.875rem; color: var(--text-secondary);">
+                <strong style="color: var(--accent-green);">✅ Database Loaded</strong><br>
+                <strong>Total size:</strong> ${window.dbFullContent.length.toLocaleString()} characters
+            </div>
+            <div style="color: var(--text-primary); white-space: pre-wrap; font-family: monospace; font-size: 0.9rem; line-height: 1.6;">${escapeHtml(preview)}${isPreview ? '\n\n...(use search to find specific content)' : ''}</div>
+        `;
         return;
     }
     
@@ -85,29 +106,44 @@ function searchDatabase() {
     });
     
     if (matches.length > 0) {
-        let html = `<div style="margin-bottom: 1rem; padding: 0.75rem; background: var(--accent-green); color: white; border-radius: 6px; font-weight: 600;">
-            Found ${matches.length} match${matches.length > 1 ? 'es' : ''}
+        let html = `<div style="margin-bottom: 1rem; padding: 1rem; background: var(--accent-green); color: white; border-radius: 8px; font-weight: 600;">
+            🔍 Found ${matches.length} match${matches.length > 1 ? 'es' : ''} for "${escapeHtml(searchTerm)}"
         </div>`;
         
-        matches.slice(0, 100).forEach(match => {
+        const displayLimit = Math.min(matches.length, 200);
+        
+        matches.slice(0, displayLimit).forEach(match => {
             const highlighted = match.content.replace(
-                new RegExp(searchTerm, 'gi'),
-                m => `<mark style="background: yellow; padding: 2px 4px; border-radius: 3px;">${m}</mark>`
+                new RegExp(escapeRegex(searchTerm), 'gi'),
+                m => `<mark style="background: #ffeb3b; padding: 2px 4px; border-radius: 3px; color: #000; font-weight: 600;">${m}</mark>`
             );
-            html += `<div style="margin-bottom: 1rem; padding: 0.75rem; border-left: 3px solid var(--accent-green); background: var(--bg-card);">
-                <div style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 0.25rem;">Line ${match.lineNum}</div>
-                <div>${highlighted}</div>
+            html += `<div style="margin-bottom: 0.75rem; padding: 0.75rem; border-left: 3px solid var(--accent-green); background: var(--bg-card); border-radius: 4px;">
+                <div style="font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 0.25rem; font-family: monospace;">Line ${match.lineNum}</div>
+                <div style="color: var(--text-primary); white-space: pre-wrap; font-family: monospace; font-size: 0.85rem; line-height: 1.5;">${highlighted}</div>
             </div>`;
         });
         
-        if (matches.length > 100) {
-            html += `<p style="text-align: center; color: var(--text-secondary); padding: 1rem;">Showing first 100 of ${matches.length} matches</p>`;
+        if (matches.length > displayLimit) {
+            html += `<p style="text-align: center; color: var(--text-secondary); padding: 1rem; background: var(--bg-card); border-radius: 8px;">
+                📄 Showing first ${displayLimit} of ${matches.length} matches
+            </p>`;
         }
         
         contentDiv.innerHTML = html;
     } else {
-        contentDiv.innerHTML = `<p style="text-align: center; color: var(--warning); padding: 2rem;">No matches found for "${escapeHtml(searchTerm)}"</p>`;
+        contentDiv.innerHTML = `
+            <div style="text-align: center; padding: 3rem;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🔍</div>
+                <p style="color: var(--text-secondary); font-size: 1.1rem;">No matches found for <strong>"${escapeHtml(searchTerm)}"</strong></p>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">Try different keywords or check spelling</p>
+            </div>
+        `;
     }
+}
+
+// Helper function to escape regex special characters
+function escapeRegex(str) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 // Set query from suggestion chip

@@ -122,15 +122,12 @@ def database():
         with open(data_path, 'r', encoding='utf-8') as f:
             content = f.read()
         
-        # Limit to first 5000 characters for preview
-        preview = content[:5000]
-        if len(content) > 5000:
-            preview += '\n\n... (showing first 5000 characters of ' + str(len(content)) + ' total)'
-        
+        # Return full content for searching and viewing
         return jsonify({
             'success': True,
-            'content': preview,
-            'total_length': len(content)
+            'content': content,
+            'total_length': len(content),
+            'lines': len(content.split('\n'))
         })
         
     except Exception as e:
