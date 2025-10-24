@@ -21,7 +21,7 @@ The system leverages open-source LLMs, vector databases, and semantic search to 
 ✅ Local, open-source LLMs (e.g., Falcon-RW-1B)  
 ✅ Fully offline & privacy-friendly (no OpenAI or cloud APIs)  
 ✅ Fast response via cached answers  
-✅ Streamlit web app + CLI interface  
+✅ Beautiful Flask web dashboard + CLI interface  
 ✅ Upload your own ICD or medical PDFs dynamically  
 ✅ Relevance reranking with MMR for better semantic results  
 
@@ -35,7 +35,7 @@ The system leverages open-source LLMs, vector databases, and semantic search to 
 | Vector DB              | FAISS                                       |
 | Embeddings             | `all-MiniLM-L6-v2` via Sentence-Transformers|
 | RAG Framework          | LangChain (v0.2+) + LangChain-Community     |
-| Frontend (Web)         | Streamlit                                   |
+| Frontend (Web)         | Flask + Beautiful Dashboard                 |
 | Backend & Pipeline     | Python 3.10+                                |
 | PDF to Text Conversion | PyMuPDF (fitz)                              |
 
@@ -51,27 +51,48 @@ The system leverages open-source LLMs, vector databases, and semantic search to 
 💡 Answer: F33.4 – Recurrent depressive disorder, currently in remission.
 
 🖥️ How to Run
+
+## Quick Start (3 Steps)
+
+1. **Navigate to project folder**
+2. **Double-click** `START_FLASK.bat`
+3. **Open browser** to http://127.0.0.1:5000
+
+✅ See `QUICKSTART.md` for details!
+
+## Detailed Setup
+
 1. Clone the Repository
-git clone https://github.com/devanshupatil04/NeuroRAG.git
-cd NeuroRAG
+```bash
+git clone https://github.com/GauravPatil2515/NEURO-RAG.git
+cd NEURO-RAG
+```
 
-2. Create Virtual Environment
-python -m venv venv
-source venv/bin/activate     # or venv\Scripts\activate on Windows
-
-3. Install Dependencies
+2. Install Dependencies
+```bash
 pip install -r requirements.txt
+```
 
-4. Extract PDF to Text
-python -c "from utils import pdf_to_text; pdf_to_text('data/9241544228_eng.pdf', 'data/icd10_text.txt')"
+3. Run Tests (Optional)
+```bash
+python test_system.py
+```
 
-5. Launch Streamlit Web Interface
-streamlit run app_streamlit.py
+4. Launch Flask Web Interface
+```bash
+# Windows
+START_FLASK.bat
 
+# Or manually
+python app_flask.py
+```
 
-Or use terminal version:
+Open browser to: **http://127.0.0.1:5000**
 
+Or use CLI terminal version:
+```bash
 python app.py
+```
 
 ⚙️ Requirements
 langchain
@@ -97,7 +118,7 @@ streamlit
 
 -🔄 Dynamic PDF Upload – Upload your own ICD, WHO, or DSM docs.
 
--🚀 Streamlit GUI – Clean, interactive web interface for medical professionals.
+-�️ Flask Dashboard – Clean, interactive web interface for medical professionals.
 
 -🧠 MMR Retrieval – Diversified results for better answer grounding.
 

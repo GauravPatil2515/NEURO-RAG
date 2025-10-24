@@ -3,20 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeuroRAG - ICD-10 Mental Health Assistant</title>
+    <title>🧠 NeuroRAG - Mental Health AI Assistant</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <!-- Sidebar -->
-    <div class="sidebar">
+    <aside class="sidebar">
         <div class="logo">
-            <div class="logo-icon">🧠</div>
+            <span class="logo-icon">🧠</span>
             <h2>NeuroRAG</h2>
         </div>
         
         <div class="quick-links">
-            <h3>Quick Links</h3>
+            <h3>Navigation</h3>
             <div class="link-item active">
+                <span class="icon">🏠</span>
+                <span>Dashboard</span>
+            </div>
+            <div class="link-item">
                 <span class="icon">🔍</span>
                 <span>Search</span>
             </div>
@@ -25,122 +29,195 @@
                 <span>Analytics</span>
             </div>
             <div class="link-item">
+                <span class="icon">⚙️</span>
+                <span>Settings</span>
+            </div>
+            <div class="link-item">
                 <span class="icon">📚</span>
-                <span>Database</span>
+                <span>Documentation</span>
+            </div>
+            <div class="link-item">
+                <span class="icon">ℹ️</span>
+                <span>About</span>
             </div>
         </div>
-    </div>
+    </aside>
 
     <!-- Main Content -->
-    <div class="main-content">
+    <main class="main-content">
         <!-- Header -->
-        <div class="header">
+        <header class="header">
             <div class="welcome">
                 <span class="icon">👋</span>
                 <h1>Welcome to NeuroRAG</h1>
             </div>
-            <div class="user-info">
-                <div class="status-badge" id="statusBadge">
-                    <span class="dot"></span>
-                    <span>System Online</span>
-                </div>
+            <div class="status-badge" id="statusBadge">
+                <span class="dot"></span>
+                <span>System Online</span>
             </div>
-        </div>
+        </header>
 
-        <!-- Dashboard Cards -->
+        <!-- Dashboard Grid -->
         <div class="dashboard-grid">
-            <!-- Search Section -->
+            <!-- Search Card -->
             <div class="card search-card">
-                <h2>🔍 ICD-10 Mental Health Search</h2>
-                <p class="subtitle">Ask questions about mental health disorders and ICD-10 codes</p>
+                <h2>🔍 Ask a Question</h2>
+                <p class="subtitle">Search for ICD-10 mental health diagnoses and codes using natural language</p>
                 
                 <div class="search-box">
-                    <input type="text" 
-                           id="searchInput" 
-                           placeholder="e.g., What is the code for depression?"
-                           onkeypress="handleKeyPress(event)">
-                    <button onclick="performSearch()" id="searchBtn">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="e.g., What is the code for Recurrent depressive disorder in remission?"
+                        onkeypress="handleKeyPress(event)"
+                        autocomplete="off"
+                    >
+                    <button id="searchBtn" onclick="performSearch()">
                         <span id="searchBtnText">Search</span>
                         <span id="searchLoader" class="loader" style="display: none;"></span>
                     </button>
                 </div>
 
-                <div class="recent-searches" id="recentSearches">
-                    <h4>💡 Try asking:</h4>
+                <div class="recent-searches">
+                    <h4>💡 Quick Examples:</h4>
                     <div class="suggestion-chips">
-                        <span class="chip" onclick="setQuery('What is F33.4?')">What is F33.4?</span>
-                        <span class="chip" onclick="setQuery('Depression codes')">Depression codes</span>
-                        <span class="chip" onclick="setQuery('PTSD diagnosis')">PTSD diagnosis</span>
-                        <span class="chip" onclick="setQuery('Anxiety disorders')">Anxiety disorders</span>
+                        <span class="chip" onclick="setQuery('What is the code for Recurrent depressive disorder in remission?')">
+                            Recurrent depressive disorder
+                        </span>
+                        <span class="chip" onclick="setQuery('What are the diagnostic criteria for Obsessive-Compulsive Disorder?')">
+                            OCD criteria
+                        </span>
+                        <span class="chip" onclick="setQuery('Tell me about bipolar disorder')">
+                            Bipolar disorder
+                        </span>
+                        <span class="chip" onclick="setQuery('What is schizophrenia?')">
+                            Schizophrenia
+                        </span>
+                        <span class="chip" onclick="setQuery('Anxiety disorders classification')">
+                            Anxiety disorders
+                        </span>
+                        <span class="chip" onclick="setQuery('PTSD diagnosis')">
+                            PTSD diagnosis
+                        </span>
                     </div>
                 </div>
             </div>
 
-            <!-- Stats Cards -->
+            <!-- Stats Row -->
             <div class="stats-row">
                 <div class="stat-card green">
-                    <div class="stat-icon">📚</div>
+                    <div class="stat-icon">🗄️</div>
                     <div class="stat-content">
                         <h3>Vector Store</h3>
-                        <p class="stat-value" id="vectorStatus">Loaded</p>
-                        <p class="stat-label">Status</p>
+                        <div class="stat-value" id="vectorStatus">Loading...</div>
+                        <div class="stat-label">FAISS Index Status</div>
                     </div>
                 </div>
 
                 <div class="stat-card blue">
-                    <div class="stat-icon">🔢</div>
+                    <div class="stat-icon">📄</div>
                     <div class="stat-content">
-                        <h3>Database</h3>
-                        <p class="stat-value">ICD-10</p>
-                        <p class="stat-label">Chapter V</p>
+                        <h3>Documents</h3>
+                        <div class="stat-value">ICD-10</div>
+                        <div class="stat-label">Chapter V - Mental Health</div>
                     </div>
                 </div>
 
                 <div class="stat-card purple">
+                    <div class="stat-icon">🤖</div>
+                    <div class="stat-content">
+                        <h3>AI Model</h3>
+                        <div class="stat-value">Falcon-1B</div>
+                        <div class="stat-label">LLM + Embeddings</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
                     <div class="stat-icon">⚡</div>
                     <div class="stat-content">
-                        <h3>Mode</h3>
-                        <p class="stat-value">Fast</p>
-                        <p class="stat-label">Retrieval</p>
+                        <h3>Response Time</h3>
+                        <div class="stat-value">&lt;2s</div>
+                        <div class="stat-label">Fast Mode Active</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Results Section -->
+            <!-- Results Card (Hidden by default) -->
             <div class="card results-card" id="resultsCard" style="display: none;">
                 <div class="results-header">
-                    <h2>📋 Results</h2>
-                    <button onclick="clearResults()" class="clear-btn">Clear</button>
+                    <h2>💡 Results</h2>
+                    <button class="clear-btn" onclick="clearResults()">✕ Clear</button>
                 </div>
                 <div class="results-content" id="resultsContent">
-                    <!-- Results will be inserted here -->
+                    <!-- Results will be dynamically inserted here -->
                 </div>
             </div>
 
-            <!-- Info Section -->
+            <!-- System Information -->
             <div class="card info-card">
-                <h3>ℹ️ About NeuroRAG</h3>
-                <p>NeuroRAG is an AI-powered assistant for ICD-10 Mental and Behavioural Disorders classification. It uses:</p>
+                <h3>📋 About NeuroRAG</h3>
+                <p class="subtitle">
+                    NeuroRAG is an intelligent AI assistant for mental health professionals and students, 
+                    designed to answer questions about ICD-10 mental and behavioural disorder classifications.
+                </p>
+                
                 <ul>
-                    <li><strong>FAISS Vector Database</strong> - Fast semantic search</li>
-                    <li><strong>Sentence Transformers</strong> - Advanced embeddings</li>
-                    <li><strong>WHO ICD-10 Data</strong> - Official classifications</li>
+                    <li>✅ <strong>Local & Private:</strong> No data sent to external APIs</li>
+                    <li>✅ <strong>Fast Retrieval:</strong> Instant answers with semantic search</li>
+                    <li>✅ <strong>RAG-Powered:</strong> Retrieval-Augmented Generation for accuracy</li>
+                    <li>✅ <strong>Open Source:</strong> Built with HuggingFace & LangChain</li>
                 </ul>
+
+                <h4 style="margin-top: 1.5rem; color: var(--primary-green);">🛠️ Tech Stack:</h4>
                 <div class="tech-stack">
                     <span class="tech-badge">Python</span>
                     <span class="tech-badge">Flask</span>
                     <span class="tech-badge">LangChain</span>
                     <span class="tech-badge">FAISS</span>
+                    <span class="tech-badge">Transformers</span>
+                    <span class="tech-badge">HuggingFace</span>
+                    <span class="tech-badge">Sentence-Transformers</span>
                 </div>
+            </div>
+
+            <!-- Developer Info -->
+            <div class="card">
+                <h3>👨‍💻 Developer</h3>
+                <p style="color: var(--text-secondary); margin-top: 0.5rem;">
+                    <strong style="color: var(--primary-green);">Gaurav Patil</strong><br>
+                    B.Tech Computer Engineering<br>
+                    📍 India<br>
+                    🔗 <a href="https://github.com/GauravPatil2515/NEURO-RAG" 
+                         target="_blank" 
+                         style="color: var(--accent-green); text-decoration: none;">
+                        View on GitHub →
+                    </a>
+                </p>
+            </div>
+
+            <!-- How to Use -->
+            <div class="card">
+                <h3>🎯 How to Use</h3>
+                <ol style="margin: 1rem 0; padding-left: 1.5rem; color: var(--text-secondary);">
+                    <li style="margin-bottom: 0.5rem;">Type your mental health question in natural language</li>
+                    <li style="margin-bottom: 0.5rem;">Click "Search" or press Enter</li>
+                    <li style="margin-bottom: 0.5rem;">Get instant AI-powered answers from ICD-10 database</li>
+                    <li>Use quick examples to try sample queries</li>
+                </ol>
             </div>
         </div>
 
         <!-- Footer -->
-        <div class="footer">
-            <p>Built by Gaurav Patil | Powered by LangChain + FAISS</p>
-        </div>
-    </div>
+        <footer class="footer">
+            <p>
+                © 2025 NeuroRAG - Built by Gaurav Patil | 
+                Powered by LangChain + FAISS + HuggingFace |
+                <span style="color: var(--success);">●</span> Local & Privacy-First
+            </p>
+        </footer>
+    </main>
 
+    <!-- Load JavaScript -->
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
