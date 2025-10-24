@@ -29,15 +29,34 @@ rag = RAGPipeline(doc_path=txt_path)
 # First-time setup: Load text, split, and build index
 if "vectorstore_built" not in st.session_state:
     with st.spinner("🔍 Preparing the document..."):
-        text = rag.load_text()
-        docs = rag.split_chunks(text)
-        rag.build_vectorstore(docs)
-        st.session_state["vectorstore_built"] = True
-        st.success("✅ Vector index built successfully!")
+        # Check if index already exists
+        if os.path.exists("faiss_index/index.faiss"):
+            try:
+                st.info("📂 Loading existing vector index...")
+                rag.load_vectorstore()
+                st.session_state["vectorstore_built"] = True
+                st.success("✅ Vector index loaded successfully!")
+            except Exception as e:
+                st.warning(f"⚠️ Could not load existing index: {e}. Rebuilding...")
+                text = rag.load_text()
+                docs = rag.split_chunks(text)
+                rag.build_vectorstore(docs)
+                st.session_state["vectorstore_built"] = True
+                st.success("✅ Vector index built successfully!")
+        else:
+            text = rag.load_text()
+            docs = rag.split_chunks(text)
+            rag.build_vectorstore(docs)
+            st.session_state["vectorstore_built"] = True
+            st.success("✅ Vector index built successfully!")
 
 # Query input
 query = st.text_input("❓ Ask your mental health-related question",
                       placeholder="e.g., What is the code for Recurrent depressive disorder in remission?")
+
+# Mode selection
+use_simple_mode = st.checkbox("⚡ Fast mode (instant, retrieval-only)", value=True, 
+                               help="Fast mode shows relevant text chunks instantly. AI mode generates answers but takes 30-60 seconds on first query.")
 
 # Initialize cache for responses
 if "cache" not in st.session_state:
@@ -45,14 +64,24 @@ if "cache" not in st.session_state:
 
 # Handle query
 if query:
-    if query in st.session_state["cache"]:
-        result = st.session_state["cache"][query]
+    cache_key = f"{query}_{'simple' if use_simple_mode else 'ai'}"
+    
+    if cache_key in st.session_state["cache"]:
+        result = st.session_state["cache"][cache_key]
         st.info("🔁 Using cached response")
     else:
-        with st.spinner("💬 Thinking..."):
-            qa_chain = rag.get_qa_chain()
-            result = qa_chain.run(query)
-            st.session_state["cache"][query] = result
+        with st.spinner("💬 Searching..." if use_simple_mode else "💬 Thinking (this may take 30-60 seconds on first query)..."):
+            if use_simple_mode:
+                # Fast retrieval-only mode
+                result = rag.simple_search(query, k=3)
+            else:
+                # Full AI mode with LLM
+                qa_chain = rag.get_qa_chain()
+                result = qa_chain.invoke(query)
+                # Extract result text
+                if isinstance(result, dict):
+                    result = result.get('result', str(result))
+            st.session_state["cache"][cache_key] = result
 
     st.markdown("### 💡 Answer")
     st.success(result)

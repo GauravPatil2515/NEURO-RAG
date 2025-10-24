@@ -17,7 +17,10 @@ def main():
         query = input("\nAsk a question (or type 'exit'): ")
         if query.lower() == 'exit':
             break
-        answer = qa_chain.run(query)
+        answer = qa_chain.invoke(query)
+        # Extract result text
+        if isinstance(answer, dict):
+            answer = answer.get('result', str(answer))
         print("\n💡 Answer:", answer)
 
 if __name__ == "__main__":

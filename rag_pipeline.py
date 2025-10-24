@@ -3,8 +3,8 @@
 from langchain_community.vectorstores import FAISS
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.llms import HuggingFacePipeline
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.chains import RetrievalQA
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_classic.chains.retrieval_qa.base import RetrievalQA
 
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 import torch
@@ -28,7 +28,11 @@ class RAGPipeline:
         return splitter.create_documents([text])
 
     def create_embeddings(self):
-        return HuggingFaceEmbeddings(model_name=self.embedding_model)
+        return HuggingFaceEmbeddings(
+            model_name=self.embedding_model,
+            model_kwargs={'device': 'cpu'},
+            encode_kwargs={'normalize_embeddings': True}
+        )
 
     def build_vectorstore(self, documents):
         embeddings = self.create_embeddings()
@@ -50,4 +54,20 @@ class RAGPipeline:
             self.load_vectorstore()
         retriever = self.vectorstore.as_retriever(search_type="mmr", search_kwargs={"k": 5, "lambda_mult": 0.7})
         llm = self.setup_llm()
-        return RetrievalQA.from_chain_type(llm=llm, retriever=retriever)
+        return RetrievalQA.from_chain_type(llm=llm, retriever=retriever, return_source_documents=False)
+    
+    def simple_search(self, query, k=3):
+        """Fast retrieval-only search without LLM (instant results)"""
+        if not self.vectorstore:
+            self.load_vectorstore()
+        docs = self.vectorstore.similarity_search(query, k=k)
+        # Combine retrieved documents
+        if not docs:
+            return "❌ No relevant information found. Try rephrasing your question."
+        
+        context = "\n\n---\n\n".join([doc.page_content for doc in docs])
+        
+        # Add helpful note
+        note = "\n\n💡 **Note:** This database contains ICD-10 Chapter V (Mental & Behavioural Disorders). For physical conditions, codes may be referenced but not fully described."
+        
+        return f"📚 Most relevant information found:\n\n{context}{note}"
