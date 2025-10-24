@@ -188,10 +188,26 @@
         <div id="databaseSection" class="content-section" style="display: none;">
             <div class="dashboard-grid">
                 <div class="card" style="grid-column: 1 / -1;">
-                    <h2 style="color: var(--primary-green); margin-bottom: 1.5rem;">ICD-10 Database</h2>
+                    <h2 style="color: var(--primary-green); margin-bottom: 1.5rem;">📊 ICD-10 Database</h2>
                     <div class="database-controls">
-                        <input type="text" id="dbSearch" placeholder="Search database..." style="flex: 1; padding: 0.75rem 1rem; border: 2px solid var(--border-color); border-radius: 8px; font-size: 0.95rem;">
-                        <button onclick="loadDatabase()" style="padding: 0.75rem 1.5rem; background: var(--accent-green); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">Load Data</button>
+                        <input 
+                            type="text" 
+                            id="dbSearch" 
+                            placeholder="First load the database, then search..." 
+                            style="flex: 1; padding: 0.75rem 1rem; border: 2px solid var(--border-color); border-radius: 8px; font-size: 0.95rem;"
+                            onkeypress="if(event.key==='Enter') searchDatabase()"
+                            disabled
+                        >
+                        <button 
+                            onclick="searchDatabase()" 
+                            style="padding: 0.75rem 1.5rem; background: var(--primary-green); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; margin-right: 0.5rem;">
+                            Search
+                        </button>
+                        <button 
+                            onclick="loadDatabase()" 
+                            style="padding: 0.75rem 1.5rem; background: var(--accent-green); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                            Load Data
+                        </button>
                     </div>
                     <div id="databaseContent" class="database-content">
                         <p style="text-align: center; color: var(--text-secondary); padding: 3rem;">
