@@ -179,18 +179,26 @@ async function performSearch() {
     loader.style.display = 'inline-block';
     
     try {
+        // Read AI toggle state (if present). Default to false for compatibility.
+        const useAiToggle = document.getElementById('aiToggle');
+        const useAi = useAiToggle ? !!useAiToggle.checked : false;
+
         const response = await fetch('/api/search', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ query: query })
+            body: JSON.stringify({ 
+                query: query,
+                use_ai: useAi
+            })
         });
         
         const data = await response.json();
         
         if (data.success) {
-            displayResults(data.query, data.result);
+            // Handle new response format with answer, sources, mode
+            displayResults(data.query, data.answer || data.result, data.mode, data.sources);
         } else {
             displayError(data.error || 'An error occurred');
         }
@@ -205,21 +213,60 @@ async function performSearch() {
     }
 }
 
-// Display results
-function displayResults(query, result) {
+// Display error
+function displayError(message) {
     const resultsCard = document.getElementById('resultsCard');
     const resultsContent = document.getElementById('resultsContent');
     
     resultsContent.innerHTML = `
-        <div style="margin-bottom: 1rem;">
-            <strong style="color: var(--primary-green);">Query:</strong> 
-            <span style="color: var(--text-primary);">${escapeHtml(query)}</span>
-        </div>
-        <div style="border-top: 2px solid var(--border-color); padding-top: 1rem;">
-            ${formatResult(result)}
+        <div style="text-align: center; padding: 2rem;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">❌</div>
+            <p style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 0.5rem;">Error</p>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">${escapeHtml(message)}</p>
         </div>
     `;
     
+    resultsCard.style.display = 'block';
+    resultsCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// Display results
+function displayResults(query, answer, mode, sources) {
+    const resultsCard = document.getElementById('resultsCard');
+    const resultsContent = document.getElementById('resultsContent');
+    
+    // Format mode badge
+    const modeBadge = mode === 'llm' 
+        ? '<span style="background: var(--accent-green); color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem;">🤖 AI Mode</span>'
+        : '<span style="background: var(--primary-green); color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem;">⚡ Fast Mode</span>';
+    
+    let html = `
+        <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 2px solid var(--border-color);">
+            <strong style="color: var(--primary-green);">Query:</strong> 
+            <span style="color: var(--text-primary);">${escapeHtml(query)}</span>
+            ${modeBadge}
+        </div>
+        <div style="padding-top: 1rem;">
+            ${formatResult(answer)}
+        </div>
+    `;
+    
+    // Add sources if available
+    if (sources && sources.length > 0) {
+        html += `
+            <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid var(--border-color);">
+                <strong style="color: var(--primary-green); margin-bottom: 0.75rem; display: block;">📚 Sources:</strong>
+                ${sources.map((src, i) => `
+                    <div style="margin-bottom: 0.5rem; padding: 0.5rem; background: var(--bg-card); border-left: 3px solid var(--accent-green); border-radius: 4px; font-size: 0.875rem;">
+                        <strong style="color: var(--accent-green);">Source ${i + 1}:</strong> 
+                        <span style="color: var(--text-secondary);">${escapeHtml(src.substring(0, 150))}...</span>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+    
+    resultsContent.innerHTML = html;
     resultsCard.style.display = 'block';
     resultsCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }

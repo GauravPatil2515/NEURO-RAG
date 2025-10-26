@@ -17,6 +17,7 @@ app.config['SECRET_KEY'] = 'neurorag-secret-key-2025'
 
 # Global RAG instance
 rag = None
+use_ai_mode = False  # Toggle for Phi-3-Mini (disabled - use Fast Mode for stability)
 
 def get_rag():
     """Lazy load RAG pipeline only when needed"""
@@ -32,6 +33,18 @@ def get_rag():
                 print("📂 Loading existing vector store...")
                 rag.load_vectorstore()
                 print("✅ Vector store loaded successfully!")
+                
+                # Try to load Phi-3-Mini if requested
+                global use_ai_mode
+                if use_ai_mode:
+                    print("\n🤖 Attempting to load Phi-3-Mini for AI-powered answers...")
+                    success = rag.setup_phi3_mini()
+                    if success:
+                        print("✅ AI Mode: ENABLED (Phi-3-Mini)")
+                    else:
+                        print("⚠️  AI Mode: DISABLED (using fast retrieval)")
+                else:
+                    print("⚡ Fast Mode: ENABLED (retrieval-only, instant results)")
             else:
                 print("⚠️ No vector store found. Please build it first using test_system.py")
                 return None
@@ -54,6 +67,7 @@ def search():
     try:
         data = request.get_json()
         query = data.get('query', '').strip()
+        use_ai = data.get('use_ai', use_ai_mode)  # Allow per-request AI toggle
         
         if not query:
             return jsonify({'error': 'Query is required'}), 400
@@ -68,13 +82,26 @@ def search():
         
         # Perform search
         print(f"🔍 Searching for: {query}")
-        result = rag_instance.simple_search(query, k=3)
         
-        return jsonify({
-            'success': True,
-            'query': query,
-            'result': result
-        })
+        # Use smart search if AI is enabled and available
+        if use_ai and rag_instance.use_phi3:
+            result_data = rag_instance.smart_search(query, k=3)
+            return jsonify({
+                'success': True,
+                'query': query,
+                'answer': result_data['answer'],
+                'sources': result_data.get('sources', []),
+                'mode': result_data.get('mode', 'retrieval')
+            })
+        else:
+            # Fast retrieval-only mode
+            result = rag_instance.simple_search(query, k=3)
+            return jsonify({
+                'success': True,
+                'query': query,
+                'answer': result,
+                'mode': 'retrieval'
+            })
         
     except Exception as e:
         print(f"❌ Search error: {e}")
