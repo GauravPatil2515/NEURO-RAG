@@ -1,27 +1,30 @@
+"""
+NeuroRAG - ICD-10 Mental Health Diagnostic Assistant
+Deployed on Hugging Face Spaces
 
-from rag_pipeline import RAGPipeline
+This is the main entry point for Hugging Face deployment.
+"""
 
-def main():
-    rag = RAGPipeline(doc_path="data/icd10_text.txt")
+import os
+import sys
 
-    print("🔍 Loading and processing document...")
-    raw_text = rag.load_text()
-    chunks = rag.split_chunks(raw_text)
-    rag.build_vectorstore(chunks)
+# Set environment variables for Hugging Face
+os.environ['TRANSFORMERS_CACHE'] = '/tmp/transformers_cache'
+os.environ['HF_HOME'] = '/tmp/huggingface'
 
-    print("📚 Vector store built and saved!")
-
-    qa_chain = rag.get_qa_chain()
-
-    while True:
-        query = input("\nAsk a question (or type 'exit'): ")
-        if query.lower() == 'exit':
-            break
-        answer = qa_chain.invoke(query)
-        # Extract result text
-        if isinstance(answer, dict):
-            answer = answer.get('result', str(answer))
-        print("\n💡 Answer:", answer)
+# Import the Flask app from run_server.py
+from run_server import app
 
 if __name__ == "__main__":
-    main()
+    # Hugging Face Spaces uses port 7860 by default
+    port = int(os.environ.get("PORT", 7860))
+    
+    print(f"🚀 Starting NeuroRAG on port {port}...")
+    print(f"📊 Loading FAISS index and embeddings...")
+    
+    # Run the Flask app
+    app.run(
+        host="0.0.0.0",
+        port=port,
+        debug=False  # Disable debug mode in production
+    )

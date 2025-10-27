@@ -1,0 +1,60 @@
+# Docker specific
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+
+# OS specific
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Documentation (keep only README.md for HF Space)
+docs/
+*.md
+!README.md
+
+# Development files
+test_*.py
+*_test.py
+tests/
+
+# Batch/Shell scripts
+*.bat
+*.ps1
+*.sh
+
+# Node modules (if any)
+node_modules/
+
+# Environment
+.env
+.env.local
+venv/
+env/
+
+# Large model files (will be downloaded)
+models/
+*.pt
+*.pth
+*.ckpt
+
+# Logs
+*.log
+logs/
