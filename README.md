@@ -1,8 +1,20 @@
+---
+title: NeuroRAG - Mental Health AI Assistant
+emoji: 🧠
+colorFrom: green
+colorTo: blue
+sdk: docker
+app_file: app.py
+pinned: false
+license: mit
+---
+
 # 🧠 NeuroRAG - Mental Health AI Assistant
 
 [![Status](https://img.shields.io/badge/status-working-brightgreen)]()
-[![Python](https://img.shields.io/badge/python-3.10+-blue)]()
+[![Python](https://img.shields.io/badge/python-3.9+-blue)]()
 [![License](https://img.shields.io/badge/license-MIT-green)]()
+[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/GauravPatil2515/neuro-rag)
 
 **AI-powered Mental Health Question Answering System using RAG (Retrieval-Augmented Generation)**
 
