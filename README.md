@@ -1,302 +1,583 @@
-# 🧠 NeuroRAG - Mental Health AI Assistant---
-
-title: NeuroRAG - Mental Health AI Assistant
-
-[![Status](https://img.shields.io/badge/status-working-brightgreen)]()emoji: 🧠
-
-[![Python](https://img.shields.io/badge/python-3.9+-blue)]()colorFrom: green
-
-[![License](https://img.shields.io/badge/license-MIT-green)]()colorTo: blue
-
-[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/GauravPatil2515/neuro-rag)sdk: docker
-
-app_file: app.py
-
-**AI-powered Mental Health Question Answering System using RAG (Retrieval-Augmented Generation)**pinned: false
-
-license: mit
-
-Built by **Gaurav Patil** | B.Tech Computer Engineering | India 🇮🇳---
+# 🧠 NeuroRAG - Mental Health AI Assistant# 🧠 NeuroRAG - Mental Health AI Assistant
 
 
 
----# 🧠 NeuroRAG - Mental Health AI Assistant
+[![Status](https://img.shields.io/badge/status-working-brightgreen)](https://github.com/GauravPatil2515/NEURO-RAG)[![Status](https://img.shields.io/badge/status-working-brightgreen)](https://github.com/GauravPatil2515/NEURO-RAG)
+
+[![Python](https://img.shields.io/badge/python-3.9+-blue)](https://www.python.org/)[![Python](https://img.shields.io/badge/python-3.9+-blue)](https://www.python.org/)
+
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
+[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/GauravPatil2515/neuro-rag)[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/GauravPatil2515/neuro-rag)
 
 
 
-## ✨ Features[![Status](https://img.shields.io/badge/status-working-brightgreen)]()
-
-[![Python](https://img.shields.io/badge/python-3.9+-blue)]()
-
-- 🔍 **Natural Language Search** - Ask questions in plain English about ICD-10 mental health codes[![License](https://img.shields.io/badge/license-MIT-green)]()
-
-- ⚡ **Fast Response** - Instant answers using semantic search (< 2 seconds)[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/GauravPatil2515/neuro-rag)
-
-- 🎨 **Beautiful Dashboard** - Modern, responsive web interface
-
-- 🔒 **100% Private** - Runs locally, no data sent to external APIs**AI-powered Mental Health Question Answering System using RAG (Retrieval-Augmented Generation)**
-
-- 🤖 **AI-Powered** - Uses advanced RAG pipeline with FAISS + HuggingFace
-
-- 📊 **Real-time Stats** - Monitor system health and performanceBuilt by **Gaurav Patil** | B.Tech Computer Engineering | India 🇮🇳
+## About**AI-powered Mental Health Question Answering System using RAG (Retrieval-Augmented Generation)**
 
 
 
-------
+AI-powered Mental Health Question Answering System using RAG (Retrieval-Augmented Generation)Built by **Gaurav Patil** | B.Tech Computer Engineering | India 🇮🇳
 
 
 
-## 🚀 Quick Start## ✨ Features
+Built by **Gaurav Patil** | B.Tech Computer Engineering | India 🇮🇳
 
 
 
-### ⚡ Super Quick (3 Steps)- 🔍 **Natural Language Search** - Ask questions in plain English about ICD-10 mental health codes
+## ✨ Features---# 🧠 NeuroRAG - Mental Health AI Assistant
+
+
+
+- 🔍 **Natural Language Search** - Ask questions in plain English about ICD-10 mental health codes
 
 - ⚡ **Fast Response** - Instant answers using semantic search (< 2 seconds)
 
-1. **Navigate to project folder**- 🎨 **Beautiful Dashboard** - Modern, responsive web interface
+- 🎨 **Beautiful Dashboard** - Modern, responsive web interface## ✨ Features[![Status](https://img.shields.io/badge/status-working-brightgreen)]()
 
-2. **Double-click** `scripts\START_SERVER.bat`- 🔒 **100% Private** - Runs locally, no data sent to external APIs
+- 🔒 **100% Private** - Runs locally, no data sent to external APIs
 
-3. **Open browser** to http://127.0.0.1:5000- 🤖 **AI-Powered** - Uses advanced RAG pipeline with FAISS + HuggingFace
+- 🤖 **AI-Powered** - Uses advanced RAG pipeline with FAISS + HuggingFace[![Python](https://img.shields.io/badge/python-3.9+-blue)]()
 
 - 📊 **Real-time Stats** - Monitor system health and performance
 
-✅ **Done! Start asking questions!**
-
----
-
----
+- 🔍 **Natural Language Search** - Ask questions in plain English about ICD-10 mental health codes[![License](https://img.shields.io/badge/license-MIT-green)]()
 
 ## 🚀 Quick Start
 
-## 📋 Prerequisites
+- ⚡ **Fast Response** - Instant answers using semantic search (< 2 seconds)[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/GauravPatil2515/neuro-rag)
 
 ### ⚡ Super Quick (3 Steps)
 
-- Python 3.10 or higher
+- 🎨 **Beautiful Dashboard** - Modern, responsive web interface
 
-- 8GB RAM recommended1. **Navigate to project folder**
+1. **Navigate to project folder**
 
-- Windows/Linux/Mac2. **Double-click** `START_SERVER.bat`
+2. **Double-click** `scripts\START_SERVER.bat`- 🔒 **100% Private** - Runs locally, no data sent to external APIs**AI-powered Mental Health Question Answering System using RAG (Retrieval-Augmented Generation)**
 
-3. **Open browser** to http://127.0.0.1:5000
+3. **Open browser** to <http://127.0.0.1:5000>
 
----
+- 🤖 **AI-Powered** - Uses advanced RAG pipeline with FAISS + HuggingFace
 
-✅ **Done! Start asking questions!**
+✅ Done! Start asking questions!
 
-## 🛠️ Installation
-
----
-
-### 1. Clone the Repository
+- 📊 **Real-time Stats** - Monitor system health and performanceBuilt by **Gaurav Patil** | B.Tech Computer Engineering | India 🇮🇳
 
 ## 📋 Prerequisites
 
+
+
+- Python 3.10 or higher
+
+- 8GB RAM recommended------
+
+- Windows/Linux/Mac
+
+
+
+## 🛠️ Installation
+
+## 🚀 Quick Start## ✨ Features
+
+### 1. Clone the Repository
+
+
+
 ```bash
 
-git clone https://github.com/GauravPatil2515/NEURO-RAG.git- Python 3.10 or higher
+git clone https://github.com/GauravPatil2515/NEURO-RAG.git### ⚡ Super Quick (3 Steps)- 🔍 **Natural Language Search** - Ask questions in plain English about ICD-10 mental health codes
 
-cd NEURO-RAG- 8GB RAM recommended
+cd NEURO-RAG
 
-```- Windows/Linux/Mac
-
-
-
-### 2. Install Dependencies---
+```- ⚡ **Fast Response** - Instant answers using semantic search (< 2 seconds)
 
 
 
-```bash## 🛠️ Installation
+### 2. Install Dependencies1. **Navigate to project folder**- 🎨 **Beautiful Dashboard** - Modern, responsive web interface
+
+
+
+```bash2. **Double-click** `scripts\START_SERVER.bat`- 🔒 **100% Private** - Runs locally, no data sent to external APIs
 
 pip install -r requirements.txt
 
-```### 1. Clone the Repository
+```3. **Open browser** to http://127.0.0.1:5000- 🤖 **AI-Powered** - Uses advanced RAG pipeline with FAISS + HuggingFace
 
 
 
-### 3. Start the Server```bash
+### 3. Start the Server- 📊 **Real-time Stats** - Monitor system health and performance
 
-git clone https://github.com/GauravPatil2515/NEURO-RAG.git
 
-**Windows:**cd NEURO-RAG
 
-```bash```
+**Windows:**✅ **Done! Start asking questions!**
+
+
+
+```bash---
 
 scripts\START_SERVER.bat
 
-```### 2. Install Dependencies
+```---
 
 
 
-**Linux/Mac:**```bash
-
-```bashpip install -r requirements.txt
-
-python run_server.py```
-
-```
-
-### 3. Start the Server
-
-### 4. Open Dashboard
-
-**Windows:**
-
-Navigate to: **http://127.0.0.1:5000**```bash
-
-START_SERVER.bat
-
----```
+**Linux/Mac:**## 🚀 Quick Start
 
 
 
-## 💡 Usage Examples**Linux/Mac:**
+```bash## 📋 Prerequisites
 
-```bash
+python run_server.py
 
-### Example Queriespython run_server.py
-
-```
-
-- *"What is the code for Recurrent depressive disorder in remission?"*
-
-  - **Answer:** F33.4 with full diagnostic criteria### 4. Open Dashboard
+```### ⚡ Super Quick (3 Steps)
 
 
 
-- *"What are the diagnostic criteria for OCD?"*Navigate to: **http://127.0.0.1:5000**
-
-  - **Answer:** Detailed ICD-10 information about Obsessive-Compulsive Disorder
-
----
-
-- *"Tell me about bipolar disorder"*
-
-  - **Answer:** Classification and diagnostic information## 💡 Usage Examples
+### 4. Open Dashboard- Python 3.10 or higher
 
 
 
-- *"Explain schizophrenia classification"*### Example Queries
-
-  - **Answer:** ICD-10 Chapter V relevant sections
-
-- *"What is the code for Recurrent depressive disorder in remission?"*
-
----  - **Answer:** F33.4 with full diagnostic criteria
+Navigate to: <http://127.0.0.1:5000>- 8GB RAM recommended1. **Navigate to project folder**
 
 
 
-## 🏗️ Architecture- *"What are the diagnostic criteria for OCD?"*
+## 💡 Usage Examples- Windows/Linux/Mac2. **Double-click** `START_SERVER.bat`
 
-  - **Answer:** Detailed ICD-10 information about Obsessive-Compulsive Disorder
 
-```
 
-┌─────────────────┐- *"Tell me about bipolar disorder"*
+### Example Queries3. **Open browser** to http://127.0.0.1:5000
 
-│   Web Browser   │  - **Answer:** Classification and diagnostic information
 
-│   (Dashboard)   │
 
-└────────┬────────┘- *"Explain schizophrenia classification"*
+- "What is the code for Recurrent depressive disorder in remission?"---
 
-         │  - **Answer:** ICD-10 Chapter V relevant sections
+  - Answer: F33.4 with full diagnostic criteria
 
-         ▼
+✅ **Done! Start asking questions!**
 
-┌─────────────────┐---
+- "What are the diagnostic criteria for OCD?"
 
-│  Flask Server   │
+  - Answer: Detailed ICD-10 information about Obsessive-Compulsive Disorder## 🛠️ Installation
 
-│  (run_server.py)│## 🏗️ Architecture
+
+
+- "Tell me about bipolar disorder"---
+
+  - Answer: Classification and diagnostic information
+
+### 1. Clone the Repository
+
+## 🏗️ Architecture
+
+## 📋 Prerequisites
+
+```text
+
+┌─────────────────┐```bash
+
+│   Web Browser   │
+
+│   (Dashboard)   │git clone https://github.com/GauravPatil2515/NEURO-RAG.git- Python 3.10 or higher
 
 └────────┬────────┘
 
-         │```
+         │cd NEURO-RAG- 8GB RAM recommended
 
-         ▼┌─────────────────┐
+         ▼
 
-┌─────────────────┐│   Web Browser   │
+┌─────────────────┐```- Windows/Linux/Mac
 
-│  RAG Pipeline   ││   (Dashboard)   │
+│  Flask Server   │
 
-│ ┌─────────────┐ │└────────┬────────┘
+│  (run_server.py)│
 
-│ │   FAISS     │ │  ← Vector Database         │
+└────────┬────────┘
 
-│ │  Embeddings │ │         ▼
+         │### 2. Install Dependencies---
 
-│ └─────────────┘ │┌─────────────────┐
+         ▼
 
-│ ┌─────────────┐ ││  Flask Server   │
-
-│ │ Falcon-1B   │ │  ← Language Model│  (run_server.py)│
-
-│ │   (LLM)     │ │└────────┬────────┘
-
-│ └─────────────┘ │         │
-
-└─────────────────┘         ▼
-
-```┌─────────────────┐
+┌─────────────────┐
 
 │  RAG Pipeline   │
 
----│ ┌─────────────┐ │
+│ ┌─────────────┐ │```bash## 🛠️ Installation
 
 │ │   FAISS     │ │  ← Vector Database
 
-## 🛠️ Tech Stack│ │  Embeddings │ │
+│ │  Embeddings │ │pip install -r requirements.txt
 
 │ └─────────────┘ │
 
-| Component | Technology |│ ┌─────────────┐ │
+│ ┌─────────────┐ │```### 1. Clone the Repository
 
-|-----------|-----------|│ │ Falcon-1B   │ │  ← Language Model
+│ │ Falcon-1B   │ │  ← Language Model
 
-| **Frontend** | HTML5, CSS3, JavaScript |│ │   (LLM)     │ │
+│ │   (LLM)     │ │
 
-| **Backend** | Flask (Python) |│ └─────────────┘ │
+│ └─────────────┘ │
 
-| **RAG Framework** | LangChain |└─────────────────┘
+└─────────────────┘### 3. Start the Server```bash
 
-| **Vector DB** | FAISS |```
+```
 
-| **Embeddings** | all-MiniLM-L6-v2 |
-
-| **LLM** | Falcon-RW-1B / Phi-3-Mini (optional) |---
-
-| **Data** | ICD-10 Chapter V |
+git clone https://github.com/GauravPatil2515/NEURO-RAG.git
 
 ## 🛠️ Tech Stack
 
----
+**Windows:**cd NEURO-RAG
 
 | Component | Technology |
 
-## 📁 Project Structure|-----------|-----------|
+|-----------|-----------|```bash```
 
-| **Frontend** | HTML5, CSS3, JavaScript |
+| Frontend | HTML5, CSS3, JavaScript |
 
-```| **Backend** | Flask (Python) |
+| Backend | Flask (Python) |scripts\START_SERVER.bat
 
-NEURO-RAG/| **RAG Framework** | LangChain |
+| RAG Framework | LangChain |
 
-├── 📁 src/                      # Core source code| **Vector DB** | FAISS |
+| Vector DB | FAISS |```### 2. Install Dependencies
 
-│   ├── rag_pipeline.py         # RAG logic & AI ⭐| **Embeddings** | all-MiniLM-L6-v2 |
+| Embeddings | all-MiniLM-L6-v2 |
 
-│   ├── utils.py                # Utility functions| **LLM** | Falcon-RW-1B |
+| LLM | Falcon-RW-1B |
 
-│   └── __init__.py| **Data** | ICD-10 Chapter V |
+| Data | ICD-10 Chapter V |
 
-│
+**Linux/Mac:**```bash
 
-├── 📁 tests/                    # Test suite---
+## 📁 Project Structure
 
-│   ├── test_complete.py        # Comprehensive tests
+```bashpip install -r requirements.txt
+
+```text
+
+NEURO-RAG/python run_server.py```
+
+├── src/                      # Core source code
+
+│   ├── rag_pipeline.py      # RAG logic & AI```
+
+│   ├── utils.py             # Utility functions
+
+│   └── __init__.py### 3. Start the Server
+
+├── tests/                   # Test suite
+
+│   ├── test_complete.py    # Comprehensive tests### 4. Open Dashboard
+
+│   ├── test_system.py      # System tests
+
+│   └── __init__.py**Windows:**
+
+├── docs/                    # Documentation
+
+│   ├── DEPLOYMENT_GUIDE.mdNavigate to: **http://127.0.0.1:5000**```bash
+
+│   ├── QUICKSTART.md
+
+│   └── QUICKSTART_DEPLOY.mdSTART_SERVER.bat
+
+├── scripts/                 # Utility scripts
+
+│   ├── START_SERVER.bat    # Quick start script---```
+
+│   ├── push_to_hf.bat
+
+│   └── deploy_to_huggingface.ps1
+
+├── templates/               # HTML templates
+
+│   ├── index.html          # Dashboard UI## 💡 Usage Examples**Linux/Mac:**
+
+│   └── home.html           # Landing page
+
+├── static/                  # Static assets```bash
+
+│   ├── style.css
+
+│   └── script.js### Example Queriespython run_server.py
+
+├── data/                    # Data files
+
+│   └── icd10_text.txt      # Mental health data```
+
+├── faiss_index/             # Vector database
+
+│   └── index.faiss- *"What is the code for Recurrent depressive disorder in remission?"*
+
+├── run_server.py            # Main Flask server
+
+├── app.py                   # HuggingFace entry  - **Answer:** F33.4 with full diagnostic criteria### 4. Open Dashboard
+
+├── app_streamlit.py         # Streamlit interface
+
+├── requirements.txt         # Dependencies
+
+└── Dockerfile
+
+```- *"What are the diagnostic criteria for OCD?"*Navigate to: **http://127.0.0.1:5000**
+
+
+
+## 🧪 Testing  - **Answer:** Detailed ICD-10 information about Obsessive-Compulsive Disorder
+
+
+
+Run the comprehensive test suite:---
+
+
+
+```bash- *"Tell me about bipolar disorder"*
+
+python tests/test_complete.py
+
+```  - **Answer:** Classification and diagnostic information## 💡 Usage Examples
+
+
+
+Expected Output:
+
+
+
+```text- *"Explain schizophrenia classification"*### Example Queries
+
+✅ Imports             PASS
+
+✅ Files               PASS  - **Answer:** ICD-10 Chapter V relevant sections
+
+✅ RAG Pipeline        PASS
+
+✅ Flask Routes        PASS- *"What is the code for Recurrent depressive disorder in remission?"*
+
+
+
+🎉 ALL TESTS PASSED!---  - **Answer:** F33.4 with full diagnostic criteria
+
+```
+
+
+
+## 🎯 API Endpoints
+
+## 🏗️ Architecture- *"What are the diagnostic criteria for OCD?"*
+
+### GET /
+
+  - **Answer:** Detailed ICD-10 information about Obsessive-Compulsive Disorder
+
+Dashboard homepage
+
+```
+
+### GET /health
+
+┌─────────────────┐- *"Tell me about bipolar disorder"*
+
+Health check endpoint
+
+│   Web Browser   │  - **Answer:** Classification and diagnostic information
+
+### POST /api/search
+
+│   (Dashboard)   │
+
+Search for mental health information
+
+└────────┬────────┘- *"Explain schizophrenia classification"*
+
+### GET /api/stats
+
+         │  - **Answer:** ICD-10 Chapter V relevant sections
+
+Get system statistics
+
+         ▼
+
+## ⚙️ Configuration
+
+┌─────────────────┐---
+
+### Environment Variables
+
+│  Flask Server   │
+
+- `USE_TF=0` - Disable TensorFlow
+
+- `TRANSFORMERS_NO_TF=1` - Use PyTorch only│  (run_server.py)│## 🏗️ Architecture
+
+- `PYTHONUNBUFFERED=1` - Real-time output
+
+└────────┬────────┘
+
+### Server Settings
+
+         │```
+
+Edit `run_server.py`:
+
+         ▼┌─────────────────┐
+
+- Change port: `port=5000`
+
+- Change host: `host='127.0.0.1'`┌─────────────────┐│   Web Browser   │
+
+- Toggle debug: `debug=True`
+
+│  RAG Pipeline   ││   (Dashboard)   │
+
+## 🐛 Troubleshooting
+
+│ ┌─────────────┐ │└────────┬────────┘
+
+### Issue: Connection Refused
+
+│ │   FAISS     │ │  ← Vector Database         │
+
+Solution: Make sure the server is running
+
+│ │  Embeddings │ │         ▼
+
+- Check for green terminal window
+
+- Look for: "Running on <http://127.0.0.1:5000>"│ └─────────────┘ │┌─────────────────┐
+
+- Restart with `scripts\START_SERVER.bat`
+
+│ ┌─────────────┐ ││  Flask Server   │
+
+### Issue: Port Already in Use
+
+│ │ Falcon-1B   │ │  ← Language Model│  (run_server.py)│
+
+Solution: Close other apps on port 5000 or change the port
+
+│ │   (LLM)     │ │└────────┬────────┘
+
+### Issue: Import Errors
+
+│ └─────────────┘ │         │
+
+Solution: Reinstall dependencies
+
+└─────────────────┘         ▼
+
+```bash
+
+pip install -r requirements.txt --force-reinstall```┌─────────────────┐
+
+```
+
+│  RAG Pipeline   │
+
+### Issue: Vector Store Not Found
+
+---│ ┌─────────────┐ │
+
+Solution: Build the vector store
+
+│ │   FAISS     │ │  ← Vector Database
+
+```bash
+
+python tests/test_system.py## 🛠️ Tech Stack│ │  Embeddings │ │
+
+```
+
+│ └─────────────┘ │
+
+## 📊 Performance
+
+| Component | Technology |│ ┌─────────────┐ │
+
+- Search Speed: < 2 seconds
+
+- Memory Usage: ~2GB RAM|-----------|-----------|│ │ Falcon-1B   │ │  ← Language Model
+
+- Accuracy: High (RAG-based retrieval)
+
+- Offline: 100% local execution| **Frontend** | HTML5, CSS3, JavaScript |│ │   (LLM)     │ │
+
+
+
+## 🤝 Contributing| **Backend** | Flask (Python) |│ └─────────────┘ │
+
+
+
+Contributions are welcome! Please:| **RAG Framework** | LangChain |└─────────────────┘
+
+
+
+1. Fork the repository| **Vector DB** | FAISS |```
+
+2. Create a feature branch
+
+3. Make your changes| **Embeddings** | all-MiniLM-L6-v2 |
+
+4. Submit a pull request
+
+| **LLM** | Falcon-RW-1B / Phi-3-Mini (optional) |---
+
+## 📄 License
+
+| **Data** | ICD-10 Chapter V |
+
+This project is open-source under the MIT License.
+
+## 🛠️ Tech Stack
+
+## 🙏 Acknowledgments
+
+---
+
+- HuggingFace for open-source models
+
+- LangChain for RAG framework| Component | Technology |
+
+- WHO ICD-10 for medical classification data
+
+- FAISS for efficient vector search## 📁 Project Structure|-----------|-----------|
+
+
+
+## 👨‍💻 Author| **Frontend** | HTML5, CSS3, JavaScript |
+
+
+
+**Gaurav Patil**  ```| **Backend** | Flask (Python) |
+
+B.Tech Computer Engineering  
+
+IndiaNEURO-RAG/| **RAG Framework** | LangChain |
+
+
+
+Contact:├── 📁 src/                      # Core source code| **Vector DB** | FAISS |
+
+
+
+- GitHub: [@GauravPatil2515](https://github.com/GauravPatil2515)│   ├── rag_pipeline.py         # RAG logic & AI ⭐| **Embeddings** | all-MiniLM-L6-v2 |
+
+- Project: [NEURO-RAG](https://github.com/GauravPatil2515/NEURO-RAG)
+
+- HuggingFace: [neuro-rag](https://huggingface.co/spaces/GauravPatil2515/neuro-rag)│   ├── utils.py                # Utility functions| **LLM** | Falcon-RW-1B |
+
+
+
+## ⭐ Star This Project│   └── __init__.py| **Data** | ICD-10 Chapter V |
+
+
+
+If you find NeuroRAG helpful, please give it a star!│
+
+
+
+Built with ❤️ using AI & Open Source Technology├── 📁 tests/                    # Test suite---
+
+
+
+Last Updated: November 1, 2025│   ├── test_complete.py        # Comprehensive tests
+
 
 │   ├── test_system.py          # System tests## 📁 Project Structure
 
