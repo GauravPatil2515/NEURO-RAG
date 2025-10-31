@@ -3,8 +3,13 @@ Comprehensive test script for NeuroRAG system
 Tests all components to ensure they work correctly
 """
 
-from rag_pipeline import RAGPipeline
+import os
 import sys
+
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+
+from src.rag_pipeline import RAGPipeline
 
 def test_embeddings():
     """Test 1: Embeddings creation"""

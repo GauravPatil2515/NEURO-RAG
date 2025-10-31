@@ -7,17 +7,17 @@ function showSection(sectionName) {
     document.getElementById('databaseSection').style.display = 'none';
     
     // Remove active class from all links
-    document.querySelectorAll('.link-item').forEach(item => {
+    document.querySelectorAll('.nav-item').forEach(item => {
         item.classList.remove('active');
     });
     
     // Show selected section
     if (sectionName === 'dashboard') {
         document.getElementById('dashboardSection').style.display = 'block';
-        document.querySelectorAll('.link-item')[0].classList.add('active');
+        document.querySelectorAll('.nav-item')[0].classList.add('active');
     } else if (sectionName === 'database') {
         document.getElementById('databaseSection').style.display = 'block';
-        document.querySelectorAll('.link-item')[1].classList.add('active');
+        document.querySelectorAll('.nav-item')[1].classList.add('active');
     }
 }
 
@@ -36,22 +36,32 @@ async function loadDatabase() {
             // Store full content for searching
             window.dbFullContent = data.content;
             
-            // Show first 10000 characters as preview
+            // Show first 10000 characters as preview with better formatting
             const preview = data.content.substring(0, 10000);
             const isPreview = data.content.length > 10000;
             
+            // Format the preview text for better readability
+            const formattedPreview = formatDatabaseText(preview);
+            
             contentDiv.innerHTML = `
-                <div style="color: var(--text-primary); white-space: pre-wrap; font-family: monospace; font-size: 0.9rem; line-height: 1.6;">${escapeHtml(preview)}${isPreview ? '\n\n...(use search to find specific content)' : ''}</div>
+                <div style="background: var(--bg-card); padding: 2rem; border-radius: 8px; border-left: 4px solid var(--primary-green);">
+                    <div style="color: var(--text-primary); white-space: pre-wrap; font-family: 'Segoe UI', Arial, sans-serif; font-size: 0.95rem; line-height: 1.8;">${formattedPreview}</div>
+                    ${isPreview ? '<div style="text-align: center; margin-top: 2rem; padding: 1rem; background: var(--primary-green); color: white; border-radius: 8px;"><strong>📚 Full database loaded!</strong> Use search above to find specific ICD-10 codes, disorders, or diagnostic criteria.</div>' : ''}
+                </div>
             `;
             
             // Show stats
             const stats = document.createElement('div');
-            stats.style.cssText = 'margin-top: 1rem; padding: 1rem; background: var(--bg-card); border-radius: 8px; font-size: 0.875rem; color: var(--text-secondary);';
+            stats.style.cssText = 'margin-top: 1rem; padding: 1.5rem; background: linear-gradient(135deg, var(--primary-green), var(--accent-green)); border-radius: 8px; font-size: 0.875rem; color: white;';
             stats.innerHTML = `
-                <strong style="color: var(--accent-green);">✅ Database Loaded</strong><br>
-                <strong>Total size:</strong> ${data.total_length.toLocaleString()} characters | 
-                <strong>Lines:</strong> ${data.lines.toLocaleString()} | 
-                <strong>Showing:</strong> ${preview.length.toLocaleString()} characters (preview)
+                <div style="margin-bottom: 0.75rem;"><strong style="font-size: 1.1rem;">📚 ICD-10 Classification Database</strong></div>
+                <div style="opacity: 0.95; line-height: 1.6;">
+                    <strong>Source:</strong> WHO ICD-10 Chapter V - Mental and Behavioural Disorders<br>
+                    <strong>Purpose:</strong> This is the primary data source for the NeuroRAG AI system<br>
+                    <strong>Total size:</strong> ${data.total_length.toLocaleString()} characters | 
+                    <strong>Lines:</strong> ${data.lines.toLocaleString()}<br>
+                    <strong>Content:</strong> Clinical descriptions and diagnostic guidelines for mental health conditions
+                </div>
             `;
             contentDiv.insertBefore(stats, contentDiv.firstChild);
             
@@ -146,6 +156,31 @@ function escapeRegex(str) {
     return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+// Format database text for better readability
+function formatDatabaseText(text) {
+    let formatted = escapeHtml(text);
+    
+    // Format major headings (lines in ALL CAPS or with special markers)
+    formatted = formatted.replace(/^([A-Z][A-Z\s\-]{10,})$/gm, '<h2 style="color: var(--primary-green); font-size: 1.3rem; font-weight: 700; margin-top: 2rem; margin-bottom: 1rem; border-bottom: 2px solid var(--accent-green); padding-bottom: 0.5rem;">$1</h2>');
+    
+    // Format section headings (shorter caps lines)
+    formatted = formatted.replace(/^([A-Z][A-Z\s]{5,20})$/gm, '<h3 style="color: var(--accent-green); font-size: 1.1rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem;">$1</h3>');
+    
+    // Format ICD codes (F00-F99 patterns)
+    formatted = formatted.replace(/\b(F\d{2}\.?\d*)\b/g, '<strong style="color: var(--primary-green); background: rgba(76, 175, 80, 0.1); padding: 2px 6px; border-radius: 4px; font-weight: 600;">$1</strong>');
+    
+    // Format chapter/section markers
+    formatted = formatted.replace(/^(Chapter [IVX]+)/gm, '<div style="background: var(--primary-green); color: white; padding: 0.5rem 1rem; border-radius: 6px; margin: 1.5rem 0; font-weight: 600; display: inline-block;">$1</div>');
+    
+    // Format WHO and important terms
+    formatted = formatted.replace(/\b(WHO|ICD-10|World Health Organization)\b/g, '<strong style="color: var(--accent-green);">$1</strong>');
+    
+    // Add spacing after paragraphs (double line breaks)
+    formatted = formatted.replace(/\n\n/g, '\n<div style="margin: 1rem 0;"></div>\n');
+    
+    return formatted;
+}
+
 // Set query from suggestion chip
 function setQuery(text) {
     document.getElementById('searchInput').value = text;
@@ -199,6 +234,8 @@ async function performSearch() {
         if (data.success) {
             // Handle new response format with answer, sources, mode
             displayResults(data.query, data.answer || data.result, data.mode, data.sources);
+            // Reload stats to update vector store status
+            loadStats();
         } else {
             displayError(data.error || 'An error occurred');
         }
@@ -309,25 +346,35 @@ async function loadStats() {
         const response = await fetch('/api/stats');
         const data = await response.json();
         
+        const vectorStatusEl = document.getElementById('vectorStatus');
+        const statusBadgeEl = document.getElementById('statusBadge');
+        
         if (data.vectorstore_loaded) {
-            document.getElementById('vectorStatus').textContent = 'Loaded';
-            document.getElementById('statusBadge').innerHTML = `
-                <span class="dot"></span>
-                <span>System Online</span>
-            `;
+            if (vectorStatusEl) vectorStatusEl.textContent = 'Loaded ✓';
+            if (statusBadgeEl) {
+                statusBadgeEl.innerHTML = `
+                    <span class="status-dot"></span>
+                    <span class="status-text">System Online</span>
+                `;
+            }
         } else {
-            document.getElementById('vectorStatus').textContent = 'Not Loaded';
-            document.getElementById('statusBadge').innerHTML = `
-                <span class="dot" style="background: var(--warning);"></span>
-                <span>Loading...</span>
-            `;
+            if (vectorStatusEl) vectorStatusEl.textContent = 'Not Loaded';
+            if (statusBadgeEl) {
+                statusBadgeEl.innerHTML = `
+                    <span class="status-dot" style="background: var(--warning);"></span>
+                    <span class="status-text">Initializing...</span>
+                `;
+            }
         }
     } catch (error) {
         console.error('Failed to load stats:', error);
-        document.getElementById('statusBadge').innerHTML = `
-            <span class="dot" style="background: var(--error);"></span>
-            <span>Offline</span>
-        `;
+        const statusBadgeEl = document.getElementById('statusBadge');
+        if (statusBadgeEl) {
+            statusBadgeEl.innerHTML = `
+                <span class="status-dot" style="background: var(--error);"></span>
+                <span class="status-text">Offline</span>
+            `;
+        }
     }
 }
 

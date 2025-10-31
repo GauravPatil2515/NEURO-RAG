@@ -25,7 +25,7 @@ def get_rag():
     if rag is None:
         try:
             print("🔄 Initializing RAG pipeline...")
-            from rag_pipeline import RAGPipeline
+            from src.rag_pipeline import RAGPipeline
             rag = RAGPipeline(doc_path="data/icd10_text.txt")
             
             # Check if vector store exists
@@ -57,7 +57,12 @@ def get_rag():
     return rag
 
 @app.route('/')
-def index():
+def home():
+    """Render home page"""
+    return render_template('home.html')
+
+@app.route('/dashboard')
+def dashboard():
     """Render main dashboard"""
     return render_template('index.html')
 

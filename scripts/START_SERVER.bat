@@ -17,8 +17,8 @@ set TRANSFORMERS_NO_TF=1
 set TF_ENABLE_ONEDNN_OPTS=0
 set PYTHONUNBUFFERED=1
 
-REM Change to project directory
-cd /d "%~dp0"
+REM Change to project directory (parent of scripts folder)
+cd /d "%~dp0.."
 
 echo   📍 Dashboard URL: http://127.0.0.1:5000
 echo   📍 Alternative:   http://localhost:5000

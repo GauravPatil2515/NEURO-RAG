@@ -1,8 +1,8 @@
 
 
 import streamlit as st
-from rag_pipeline import RAGPipeline
-from utils import pdf_to_text
+from src.rag_pipeline import RAGPipeline
+from src.utils import pdf_to_text
 import os
 
 

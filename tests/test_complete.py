@@ -22,7 +22,7 @@ def test_imports():
         from langchain_text_splitters import RecursiveCharacterTextSplitter
         
         print("✓ Testing RAG pipeline...")
-        from rag_pipeline import RAGPipeline
+        from src.rag_pipeline import RAGPipeline
         
         print("\n✅ All imports successful!")
         return True
@@ -39,9 +39,13 @@ def test_files_exist():
     print("📁 Testing File Structure...")
     print("=" * 60)
     
+    # Navigate to parent directory for correct paths
+    base_dir = os.path.dirname(os.path.dirname(__file__))
+    os.chdir(base_dir)
+    
     required_files = [
         "run_server.py",
-        "rag_pipeline.py",
+        "src/rag_pipeline.py",
         "data/icd10_text.txt",
         "faiss_index/index.faiss",
         "templates/index.html",
@@ -72,7 +76,7 @@ def test_rag_pipeline():
     print("=" * 60)
     
     try:
-        from rag_pipeline import RAGPipeline
+        from src.rag_pipeline import RAGPipeline
         
         print("Creating RAG instance...")
         rag = RAGPipeline(doc_path="data/icd10_text.txt")
@@ -138,6 +142,11 @@ def test_flask_routes():
 
 def main():
     """Run all tests"""
+    # Navigate to project root
+    base_dir = os.path.dirname(os.path.dirname(__file__))
+    os.chdir(base_dir)
+    sys.path.insert(0, base_dir)
+    
     print("\n" + "=" * 60)
     print("🧠 NeuroRAG System Test Suite")
     print("=" * 60)
@@ -165,7 +174,7 @@ def main():
         print("🎉 ALL TESTS PASSED!")
         print("✅ NeuroRAG is ready to use!")
         print("\nTo start the server, run: python run_server.py")
-        print("Or double-click: START_SERVER.bat")
+        print("Or double-click: scripts\\START_SERVER.bat")
     else:
         print("⚠️ SOME TESTS FAILED")
         print("Please check the errors above and fix them.")

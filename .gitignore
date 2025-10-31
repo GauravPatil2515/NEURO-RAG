@@ -22,6 +22,7 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+*.pyc
 
 # Virtual environments
 .env
@@ -56,5 +57,17 @@ desktop.ini
 
 # Project specific
 faiss_index/*.faiss
+faiss_index/*.pkl
 data/*.pdf
 data/uploaded.pdf
+
+# Models (optional - uncomment if not tracking models)
+# models/
+# *.bin
+# *.safetensors
+
+# Test outputs
+test_output/
+.pytest_cache/
+.coverage
+htmlcov/
