@@ -73,6 +73,61 @@ Navigate to <http://127.0.0.1:5000>
 - "Tell me about bipolar disorder"
 - "Explain schizophrenia classification"
 
+## Deployment
+
+### Render Deployment
+
+Deploy NeuroRAG to Render for free hosting:
+
+1. **Fork this repository** to your GitHub account
+
+2. **Connect to Render:**
+   - Go to [render.com](https://render.com)
+   - Sign up/Login with your GitHub account
+   - Click "New +" → "Web Service"
+
+3. **Connect Repository:**
+   - Choose "Connect GitHub"
+   - Select your forked NeuroRAG repository
+   - Click "Connect"
+
+4. **Configure Service:**
+   - **Name:** `neurorag` (or your choice)
+   - **Runtime:** `Python 3`
+   - **Build Command:** `pip install -r requirements.txt`
+   - **Start Command:** `python run_server.py`
+
+5. **Environment Variables:**
+   Add these environment variables in Render dashboard:
+
+   ```bash
+   PYTHON_VERSION=3.10
+   USE_TF=0
+   TRANSFORMERS_NO_TF=1
+   PYTHONUNBUFFERED=1
+   TRANSFORMERS_CACHE=/tmp/transformers_cache
+   HF_HOME=/tmp/huggingface
+   ```
+
+6. **Deploy:**
+   - Click "Create Web Service"
+   - Wait for deployment (may take 10-15 minutes for first build)
+   - Your app will be live at: `https://your-app-name.onrender.com`
+
+### Local Development
+
+**Windows:**
+
+```bash
+START_SERVER.bat
+```
+
+**Linux/Mac:**
+
+```bash
+python run_server.py
+```
+
 ## Tech Stack
 
 | Component | Technology |

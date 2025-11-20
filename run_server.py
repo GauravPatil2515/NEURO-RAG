@@ -181,8 +181,12 @@ if __name__ == '__main__':
     print("\n" + "=" * 70)
     print("🧠 NeuroRAG - Mental Health AI Assistant")
     print("=" * 70)
-    print("📍 Dashboard URL:  http://localhost:5000")
-    print("📍 Alternative:    http://127.0.0.1:5000")
+    
+    # Get port from environment (for Render deployment)
+    port = int(os.environ.get("PORT", 5000))
+    
+    print(f"📍 Dashboard URL:  http://localhost:{port}")
+    print(f"📍 Alternative:    http://127.0.0.1:{port}")
     print("=" * 70)
     print("⚠️  Keep this terminal window OPEN while using the app")
     print("⚠️  Press CTRL+C to stop the server")
@@ -191,9 +195,9 @@ if __name__ == '__main__':
     
     try:
         app.run(
-            debug=True,
-            host='127.0.0.1',
-            port=5000,
+            debug=False,  # Disable debug in production
+            host='0.0.0.0',  # Listen on all interfaces for Render
+            port=port,
             use_reloader=False,
             threaded=True
         )
